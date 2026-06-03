@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer & Social Media Analytics — Deborah Musuamba</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8f9fa;color:#1a1a1a;padding:1.5rem}
+.wrap{max-width:1100px;margin:0 auto}
+h1{font-size:22px;font-weight:600;margin-bottom:4px}
+.sub{font-size:13px;color:#666;margin-bottom:1.5rem}
+.tabs{display:flex;gap:6px;margin-bottom:1.5rem}
+.tab{padding:7px 18px;border-radius:8px;border:1px solid #dee2e6;font-size:13px;cursor:pointer;background:#fff;color:#555;transition:all .15s}
+.tab.active{background:#e6f1fb;color:#185FA5;border-color:#b5d4f4;font-weight:600}
+.section{display:none}
+.section.active{display:block}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
+.m{background:#fff;border-radius:10px;padding:1rem;text-align:center;border:1px solid #e9ecef}
+.m .lbl{font-size:12px;color:#888;margin-bottom:4px}
+.m .val{font-size:22px;font-weight:700;color:#1a1a1a}
+.m .chg{font-size:11px;margin-top:3px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.card{background:#fff;border:1px solid #e9ecef;border-radius:12px;padding:1.2rem}
+.ct{font-size:11px;font-weight:700;color:#888;margin-bottom:.9rem;text-transform:uppercase;letter-spacing:.5px}
+.cw{position:relative;width:100%}
+.leg{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px;font-size:11px;color:#555}
+.leg span{display:flex;align-items:center;gap:3px}
+.leg .d{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.ai-card{background:#fff;border:1px solid #e9ecef;border-radius:12px;padding:1.2rem;margin-top:14px}
+.ins{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.in{background:#f8f9fa;border-radius:8px;padding:10px 14px;font-size:13px;color:#333;display:flex;gap:8px;align-items:flex-start}
+.prog-row{margin-bottom:8px}
+.prog-lbl{display:flex;justify-content:space-between;font-size:12px;color:#666;margin-bottom:3px}
+.prog-bar{height:7px;background:#e9ecef;border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px}
+.tag{background:#e6f1fb;color:#185FA5;border-radius:6px;padding:3px 8px;font-size:11px;font-weight:600}
+.footer{text-align:center;margin-top:2rem;font-size:12px;color:#aaa}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1><i class="ti ti-device-analytics" style="margin-right:8px"></i>Customer & Social Media Analytics Dashboard</h1>
+  <p class="sub">Data Visualization Project &nbsp;•&nbsp; Author: Deborah Musuamba &nbsp;•&nbsp; <a href="https://github.com/Deborahmk" target="_blank">github.com/Deborahmk</a></p>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('customer')"><i class="ti ti-users" style="margin-right:5px"></i>Customer Behavior</button>
+    <button class="tab" onclick="switchTab('social')"><i class="ti ti-brand-instagram" style="margin-right:5px"></i>Social Media Trends</button>
+    <button class="tab" onclick="switchTab('ai')"><i class="ti ti-brain" style="margin-right:5px"></i>AI Insights</button>
+  </div>
+
+  <div id="customer" class="section active">
+    <div class="metrics">
+      <div class="m"><div class="lbl">Total Customers</div><div class="val">12,847</div><div class="chg" style="color:#0F6E56">+8.3% this month</div></div>
+      <div class="m"><div class="lbl">Avg Order Value</div><div class="val">$94.20</div><div class="chg" style="color:#0F6E56">+12.1% vs last month</div></div>
+      <div class="m"><div class="lbl">Cart Abandonment</div><div class="val">68.4%</div><div class="chg" style="color:#A32D2D">Needs improvement</div></div>
+      <div class="m"><div class="lbl">Repeat Purchase Rate</div><div class="val">34.7%</div><div class="chg" style="color:#0F6E56">+5.2% vs last month</div></div>
+    </div>
+    <div class="g2">
+      <div class="card"><p class="ct">Purchase behavior by age group</p><div class="leg" id="ageLeg"></div><div class="cw" style="height:200px"><canvas id="ageChart" role="img" aria-label="Bar chart showing purchases by age group">Age 18-24: 1840, 25-34: 4890, 35-44: 3210, 45-54: 2140, 55+: 767</canvas></div></div>
+      <div class="card"><p class="ct">Top purchase categories</p><div class="leg" id="catLeg"></div><div class="cw" style="height:200px"><canvas id="catChart" role="img" aria-label="Doughnut chart of purchase categories">Electronics 35%, Clothing 28%, Home 18%, Beauty 12%, Sports 7%</canvas></div></div>
+    </div>
+    <div class="g2">
+      <div class="card"><p class="ct">Monthly purchase trend</p><div class="cw" style="height:180px"><canvas id="trendChart" role="img" aria-label="Line chart of monthly purchases Jan-Jun">Jan 8200, Feb 9100, Mar 8750, Apr 10400, May 11200, Jun 12847</canvas></div></div>
+      <div class="card">
+        <p class="ct">Device used for purchase</p>
+        <div style="margin-top:8px">
+          <div class="prog-row"><div class="prog-lbl"><span>Mobile</span><span>58%</span></div><div class="prog-bar"><div class="prog-fill" style="width:58%;background:#185FA5"></div></div></div>
+          <div class="prog-row"><div class="prog-lbl"><span>Desktop</span><span>31%</span></div><div class="prog-bar"><div class="prog-fill" style="width:31%;background:#0F6E56"></div></div></div>
+          <div class="prog-row"><div class="prog-lbl"><span>Tablet</span><span>11%</span></div><div class="prog-bar"><div class="prog-fill" style="width:11%;background:#BA7517"></div></div></div>
+        </div>
+        <p class="ct" style="margin-top:1rem">Payment method</p>
+        <div style="margin-top:8px">
+          <div class="prog-row"><div class="prog-lbl"><span>Credit Card</span><span>44%</span></div><div class="prog-bar"><div class="prog-fill" style="width:44%;background:#534AB7"></div></div></div>
+          <div class="prog-row"><div class="prog-lbl"><span>PayPal</span><span>28%</span></div><div class="prog-bar"><div class="prog-fill" style="width:28%;background:#D85A30"></div></div></div>
+          <div class="prog-row"><div class="prog-lbl"><span>Apple/Google Pay</span><span>18%</span></div><div class="prog-bar"><div class="prog-fill" style="width:18%;background:#993556"></div></div></div>
+          <div class="prog-row"><div class="prog-lbl"><span>Other</span><span>10%</span></div><div class="prog-bar"><div class="prog-fill" style="width:10%;background:#888780"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="social" class="section">
+    <div class="metrics">
+      <div class="m"><div class="lbl">Total Followers</div><div class="val">284K</div><div class="chg" style="color:#0F6E56">+14.2% this month</div></div>
+      <div class="m"><div class="lbl">Avg Engagement Rate</div><div class="val">4.8%</div><div class="chg" style="color:#0F6E56">Above industry avg</div></div>
+      <div class="m"><div class="lbl">Top Platform</div><div class="val">Instagram</div><div class="chg" style="color:#185FA5">42% of traffic</div></div>
+      <div class="m"><div class="lbl">Viral Posts</div><div class="val">23</div><div class="chg" style="color:#0F6E56">+7 vs last month</div></div>
+    </div>
+    <div class="g2">
+      <div class="card"><p class="ct">Followers by platform</p><div class="leg" id="platLeg"></div><div class="cw" style="height:200px"><canvas id="platChart" role="img" aria-label="Doughnut chart of followers by platform">Instagram 42%, TikTok 28%, Facebook 18%, Twitter 12%</canvas></div></div>
+      <div class="card"><p class="ct">Engagement rate by content type</p><div class="leg" id="engLeg"></div><div class="cw" style="height:200px"><canvas id="engChart" role="img" aria-label="Bar chart of engagement rates by content type">Reels 8.4%, Videos 7.1%, Carousels 5.9%, Stories 4.2%, Images 2.8%</canvas></div></div>
+    </div>
+    <div class="g2">
+      <div class="card"><p class="ct">Weekly post reach trend</p><div class="cw" style="height:180px"><canvas id="reachChart" role="img" aria-label="Line chart of weekly reach over 8 weeks">W1 18400, W2 21300, W3 19800, W4 24700, W5 28900, W6 26400, W7 31200, W8 34800</canvas></div></div>
+      <div class="card">
+        <p class="ct">Best posting times</p>
+        <div style="margin-top:8px">
+          <div class="prog-row"><div class="prog-lbl"><span>7pm - 9pm</span><span>Very High</span></div><div class="prog-bar"><div class="prog-fill" style="width:95%;background:#0F6E56"></div></div></div>
+          <div class="prog-row"><div class="prog-lbl"><span>12pm - 2pm</span><span>High</span></div><div class="prog-bar"><div class="prog-fill" style="width:80%;background:#185FA5"></div></div></div>
+          <div class="prog-row"><div class="prog-lbl"><span>8am - 10am</span><span>Medium</span></div><div class="prog-bar"><div class="prog-fill" style="width:55%;background:#BA7517"></div></div></div>
+          <div class="prog-row"><div class="prog-lbl"><span>10pm - 12am</span><span>Low</span></div><div class="prog-bar"><div class="prog-fill" style="width:28%;background:#888780"></div></div></div>
+        </div>
+        <p class="ct" style="margin-top:1rem">Top performing hashtags</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+          <span class="tag">#trending</span><span class="tag">#viral</span><span class="tag">#lifestyle</span><span class="tag">#tech</span><span class="tag">#shopping</span><span class="tag">#deals</span><span class="tag">#new</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ai" class="section">
+    <div class="metrics">
+      <div class="m"><div class="lbl">AI Confidence Score</div><div class="val">94%</div><div class="chg" style="color:#0F6E56">High accuracy</div></div>
+      <div class="m"><div class="lbl">Patterns Detected</div><div class="val">18</div><div class="chg" style="color:#185FA5">Across all data</div></div>
+      <div class="m"><div class="lbl">Predicted Growth</div><div class="val">+22%</div><div class="chg" style="color:#0F6E56">Next 30 days</div></div>
+      <div class="m"><div class="lbl">Risk Flags</div><div class="val">3</div><div class="chg" style="color:#A32D2D">Needs attention</div></div>
+    </div>
+    <div class="g2">
+      <div class="card"><p class="ct">Customer sentiment analysis</p><div class="leg" id="sentLeg"></div><div class="cw" style="height:200px"><canvas id="sentChart" role="img" aria-label="Doughnut chart of customer sentiment">Positive 62%, Neutral 24%, Negative 14%</canvas></div></div>
+      <div class="card"><p class="ct">Predicted vs actual revenue</p><div class="leg" id="predLeg"></div><div class="cw" style="height:200px"><canvas id="predChart" role="img" aria-label="Line chart of actual vs predicted revenue">Actual Jan-Jun, predicted Jul-Aug.</canvas></div></div>
+    </div>
+    <div class="ai-card">
+      <h3 style="font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px"><i class="ti ti-brain" style="color:#185FA5"></i>AI Recommendations</h3>
+      <div class="ins">
+        <div class="in"><i class="ti ti-device-mobile" style="color:#185FA5;flex-shrink:0"></i>68.4% cart abandonment on mobile — optimize checkout flow for mobile users</div>
+        <div class="in"><i class="ti ti-clock" style="color:#0F6E56;flex-shrink:0"></i>Post between 7-9pm for maximum reach — engagement is 95% higher in this window</div>
+        <div class="in"><i class="ti ti-users" style="color:#BA7517;flex-shrink:0"></i>25-34 age group drives 38% of revenue — target with personalized campaigns</div>
+        <div class="in"><i class="ti ti-video" style="color:#534AB7;flex-shrink:0"></i>Video content generates 3x more engagement than static images — increase video output</div>
+        <div class="in"><i class="ti ti-repeat" style="color:#D85A30;flex-shrink:0"></i>34.7% repeat rate is strong — introduce rewards program to push above 40%</div>
+        <div class="in"><i class="ti ti-trending-up" style="color:#0F6E56;flex-shrink:0"></i>AI predicts +22% revenue growth if social posting frequency increases by 3x per week</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">Customer & Social Media Analytics Dashboard &nbsp;•&nbsp; Built with Chart.js &nbsp;•&nbsp; Deborah Musuamba 2026</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const C=["#185FA5","#0F6E56","#D85A30","#BA7517","#993556","#534AB7","#639922","#A32D2D"];
+function leg(id,labels,colors){document.getElementById(id).innerHTML=labels.map((l,i)=>`<span><span class="d" style="background:${colors[i%colors.length]}"></span>${l}</span>`).join('');}
+function mk(id,type,labels,datasets,opts={}){new Chart(document.getElementById(id),{type,data:{labels,datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},...opts}});}
+mk('ageChart','bar',['18-24','25-34','35-44','45-54','55+'],[{data:[1840,4890,3210,2140,767],backgroundColor:C.slice(0,5),borderRadius:4}],{scales:{x:{ticks:{font:{size:11}}},y:{ticks:{font:{size:11}}}}});
+leg('ageLeg',['18-24','25-34','35-44','45-54','55+'],C);
+mk('catChart','doughnut',['Electronics','Clothing','Home','Beauty','Sports'],[{data:[35,28,18,12,7],backgroundColor:C.slice(0,5),borderWidth:0}]);
+leg('catLeg',['Electronics 35%','Clothing 28%','Home 18%','Beauty 12%','Sports 7%'],C);
+mk('trendChart','line',['Jan','Feb','Mar','Apr','May','Jun'],[{data:[8200,9100,8750,10400,11200,12847],borderColor:'#185FA5',backgroundColor:'rgba(24,95,165,0.07)',fill:true,tension:0.4,pointRadius:4,pointBackgroundColor:'#185FA5'}],{scales:{x:{ticks:{font:{size:11}}},y:{ticks:{font:{size:11}}}}});
+mk('platChart','doughnut',['Instagram','TikTok','Facebook','Twitter'],[{data:[42,28,18,12],backgroundColor:[C[0],C[2],C[1],C[3]],borderWidth:0}]);
+leg('platLeg',['Instagram 42%','TikTok 28%','Facebook 18%','Twitter 12%'],[C[0],C[2],C[1],C[3]]);
+mk('engChart','bar',['Reels','Videos','Carousels','Stories','Images'],[{data:[8.4,7.1,5.9,4.2,2.8],backgroundColor:[C[1],C[0],C[3],C[2],C[4]],borderRadius:4}],{scales:{x:{ticks:{font:{size:11}}},y:{ticks:{callback:v=>v+'%',font:{size:11}}}}});
+leg('engLeg',['Reels 8.4%','Videos 7.1%','Carousels 5.9%','Stories 4.2%','Images 2.8%'],[C[1],C[0],C[3],C[2],C[4]]);
+mk('reachChart','line',['W1','W2','W3','W4','W5','W6','W7','W8'],[{data:[18400,21300,19800,24700,28900,26400,31200,34800],borderColor:'#D85A30',backgroundColor:'rgba(216,90,48,0.07)',fill:true,tension:0.4,pointRadius:4,pointBackgroundColor:'#D85A30'}],{scales:{x:{ticks:{font:{size:11}}},y:{ticks:{font:{size:11}}}}});
+mk('sentChart','doughnut',['Positive','Neutral','Negative'],[{data:[62,24,14],backgroundColor:[C[1],C[3],C[7]],borderWidth:0}]);
+leg('sentLeg',['Positive 62%','Neutral 24%','Negative 14%'],[C[1],C[3],C[7]]);
+mk('predChart','line',['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],[
+  {label:'Actual',data:[42000,48000,45000,56000,61000,68000,null,null],borderColor:'#185FA5',fill:false,tension:0.4,pointRadius:4,pointBackgroundColor:'#185FA5'},
+  {label:'Predicted',data:[null,null,null,null,null,68000,76000,83000],borderColor:'#0F6E56',fill:false,tension:0.4,borderDash:[5,5],pointRadius:4,pointBackgroundColor:'#0F6E56'}
+],{scales:{x:{ticks:{font:{size:11}}},y:{ticks:{callback:v=>'$'+Math.round(v/1000)+'K',font:{size:11}}}}});
+leg('predLeg',['Actual revenue','Predicted revenue'],[C[0],C[1]]);
+function switchTab(id){
+  document.querySelectorAll('.tab').forEach((t,i)=>{t.classList.toggle('active',['customer','social','ai'][i]===id)});
+  document.querySelectorAll('.section').forEach(s=>{s.classList.toggle('active',s.id===id)});
+}
+</script>
+</body>
+</html>
