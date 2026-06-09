@@ -14,21 +14,21 @@ An interactive 3-tab analytics dashboard covering customer behavior analysis, so
 
 ##  Features
 
-### Tab 1 — Customer Behavior
+### Tab 1 Customer Behavior
 - Purchase behavior by age group
 - Top purchase categories (Electronics, Clothing, Home, Beauty, Sports)
 - Monthly purchase trend (Jan–Jun)
 - Device usage breakdown (Mobile 58%, Desktop 31%, Tablet 11%)
 - Payment method analysis
 
-### Tab 2 — Social Media Trends
+### Tab 2  Social Media Trends
 - Followers by platform (Instagram, TikTok, Facebook, Twitter)
 - Engagement rate by content type (Reels, Videos, Carousels, Stories, Images)
 - Weekly post reach trend (8 weeks)
 - Best posting times analysis
 - Top performing hashtags
 
-### Tab 3 — AI Insights
+### Tab 3  AI Insights
 - Customer sentiment analysis (Positive 62%, Neutral 24%, Negative 14%)
 - Predicted vs actual revenue chart
 - AI confidence score (94%)
@@ -36,7 +36,7 @@ An interactive 3-tab analytics dashboard covering customer behavior analysis, so
 
 ---
 
-## 🧠 Technical Skills Demonstrated
+##  Technical Skills Demonstrated
 
 | Skill | Implementation |
 |-------|---------------|
